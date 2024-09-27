@@ -31,5 +31,9 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
-    - name: push the docker image
-      run: docker push my_image 
+        
+    - name: Build the Docker image
+      run: docker build -t ${{ env.REGISTRY }}/${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest .
+    
+    - name: Push the Docker image
+      run: docker push ${{ env.REGISTRY }}/${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
