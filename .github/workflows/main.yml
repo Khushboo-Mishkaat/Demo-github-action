@@ -32,8 +32,11 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
         
-    - name: Build and push
+    - name: Build and push Docker image with multiple tags
       uses: docker/build-push-action@v5
       with:
-          push: true
-          tags: khushboo053/my_image:latest
+        context: .
+        push: true
+        tags: |
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
