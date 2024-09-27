@@ -32,8 +32,8 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
         
-    - name: Build the Docker image
-      run: docker build -t ${{ env.REGISTRY }}/${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest .
-    
-    - name: Push the Docker image
-      run: docker push ${{ env.REGISTRY }}/${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+    - name: Build and push
+      uses: docker/build-push-action@v5
+      with:
+          push: true
+          tags: akoskm/my_image:latest
